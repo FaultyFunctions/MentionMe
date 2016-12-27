@@ -23,7 +23,7 @@ Sound: ENTITY_EXPERIENCE_ORB_PICKUP
 * Sound and colors are customizable.
 * Permissions
 
-###Future Features
+###Planned Features
 * More toggles to turn certain features off.
 * Hashtags with trending support for Today/This Week/All Time.
 * More permission nodes for better customization.
