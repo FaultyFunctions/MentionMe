@@ -1,0 +1,9 @@
+name: MentionMe
+version: 0.1.0
+author: MoMoe
+main: USA.MoMoe.MentionMe.Main
+
+commands:
+    mentionmereload:
+        description: "Reloads the Config"
+        usage: /mentionmereload
