@@ -11,7 +11,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         // Default Config Options
         config.options().header(
-                "Thank you for downloading MentionMe v0.3.1!\n" +
+                "Thank you for downloading MentionMe v0.3.2!\n" +
                 "The \"everyone-notify\" options toggle whether the @everyone tag will use the features listed.\n" +
                 "The \"selftag-notify\" option will use default \"notify\" values if set to true.\n" +
                 "The \"title-time\" option below is in server ticks. 20 = 1 second\n" +

@@ -113,7 +113,7 @@ public class ChatListener implements Listener {
                                 mentionColor + "@" + target.getName() + ChatColor.RESET);
                         event.setMessage(newMessage);
                         
-                        if ((sender == target) && (plugin.getConfig().getBoolean("selftag-notify"))) {
+                        if ((sender != target) && (!plugin.getConfig().getBoolean("selftag-notify"))) {
                             // Send a sound to the target
                             try {
                                 target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);

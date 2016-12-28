@@ -1,6 +1,10 @@
 Change Log
 ===
 
+##v0.3.2 (12/28/2016)
+####Fixes:
+1. Fixed bug in which a sound wouldn't play for the target if you had `selfnotify-tag` set to false.
+
 ##v0.3.1 (12/28/2016)
 ####Added Features:
 * Added toggle for self-notification.
