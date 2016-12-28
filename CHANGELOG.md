@@ -1,6 +1,10 @@
 Change Log
 ===
 
+##v0.3.1 (12/28/2016)
+####Added Features:
+* Added toggle for self-notification.
+
 ##v0.3.0 (12/28/2016)
 ####Added Features:
 * Primative Hashtag support (colors only, no trending yet).

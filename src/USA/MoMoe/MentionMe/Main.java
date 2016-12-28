@@ -11,7 +11,9 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         // Default Config Options
         config.options().header(
-                "Thank you for downloading MentionMe v0.3.0!\n" +
+                "Thank you for downloading MentionMe v0.3.1!\n" +
+                "The \"everyone-notify\" options toggle whether the @everyone tag will use the features listed.\n" +
+                "The \"selftag-notify\" option will use default \"notify\" values if set to true.\n" +
                 "The \"title-time\" option below is in server ticks. 20 = 1 second\n" +
                 "You can get a full list of sounds at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html\n" +
                 "The MentionMe source code is available at: https://github.com/MoMoe0/MentionMe\n");
@@ -21,6 +23,7 @@ public class Main extends JavaPlugin {
         config.addDefault("everyone-notify-chat", true);
         config.addDefault("everyone-notify-actionbar", true);
         config.addDefault("everyone-notify-title", true);
+        config.addDefault("selftag-notify", false);
         config.addDefault("enable-sound", true);
         config.addDefault("mention-color", "&e");
         config.addDefault("hashtag-color", "&b");

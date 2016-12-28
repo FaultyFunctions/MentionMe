@@ -112,27 +112,29 @@ public class ChatListener implements Listener {
                         newMessage = newMessage.replaceAll("@" + "(?i)" + playerNames.get(i),
                                 mentionColor + "@" + target.getName() + ChatColor.RESET);
                         event.setMessage(newMessage);
+                        
+                        if ((sender == target) && (plugin.getConfig().getBoolean("selftag-notify"))) {
+                            // Send a sound to the target
+                            try {
+                                target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
+                            } catch (Exception e) {
+                                soundError = true;
+                            }
 
-                        // Send a sound to the target
-                        try {
-                            target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
-                        } catch (Exception e) {
-                            soundError = true;
-                        }
+                            // Notify the player in chat
+                            if (plugin.getConfig().getBoolean("notify-in-chat")) {
+                                target.sendMessage(mentionMessage.replace("%player%", sender.getDisplayName() + mentionColor));
+                            }
 
-                        // Notify the player in chat
-                        if (plugin.getConfig().getBoolean("notify-in-chat")) {
-                            target.sendMessage(mentionMessage.replace("%player%", sender.getDisplayName() + mentionColor));
-                        }
+                            // Notify the player via actionbar
+                            if (plugin.getConfig().getBoolean("notify-in-actionbar")) {
+                                bar.send(target);
+                            }
 
-                        // Notify the player via actionbar
-                        if (plugin.getConfig().getBoolean("notify-in-actionbar")) {
-                            bar.send(target);
-                        }
-
-                        // Notify all players via title
-                        if (plugin.getConfig().getBoolean("notify-in-title")) {
-                            title.send(target);
+                            // Notify all players via title
+                            if (plugin.getConfig().getBoolean("notify-in-title")) {
+                                title.send(target);
+                            }
                         }
                     }
                 }
