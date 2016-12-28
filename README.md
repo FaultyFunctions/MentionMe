@@ -27,14 +27,16 @@ Spigot plugin for hashtags and tagging people.
 
 **Default Config**:
 ```YAML
-# Thank you for downloading MentionMe v0.3.1!
+# Thank you for downloading MentionMe v0.3.0!
+# The "everyone-notify" options toggle whether the @everyone tag will use the features listed.
+# The "selftag-notify" option will use default "notify" values if set to true.
 # The "title-time" option below is in server ticks. 20 = 1 second
 # You can get a full list of sounds at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
 # The MentionMe source code is available at: https://github.com/MoMoe0/MentionMe
 
 notify-in-chat: true
 notify-in-actionbar: true
-notify-in-title: true
+notify-in-title: false
 everyone-notify-chat: true
 everyone-notify-actionbar: true
 everyone-notify-title: true
