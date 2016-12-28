@@ -11,10 +11,10 @@ Spigot plugin for hashtags and tagging people.
 * Support for using partial names.
 * Tagging the whole server with '@Everyone'.
 * Sound and colors are customizable.
-* Actionbar Support
-* Title Support
+* Actionbar Support.
+* Title Support.
 * Toggles to turn certain features off.
-* Permissions
+* Permissions.
 
 ###Planned Features
 1. More toggles to turn certain features off.
