@@ -1,6 +1,15 @@
 Change Log
 ===
 
+##v0.3.0 (12/28/2016)
+####Added Features:
+* Primative Hashtag support (colors only, no trending yet).
+* Added toggles for the `@everyone` tag.
+
+####Fixes:
+1. Fixed error checking repeating the message to the user.
+2. `@everyone` doesn't ping the user who sent it anymore.
+
 ##v0.2.0 (12/27/2016)
 ####Added Features:
 * Title & Subtitle support.

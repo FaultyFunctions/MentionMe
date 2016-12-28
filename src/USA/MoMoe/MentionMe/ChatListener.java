@@ -30,12 +30,12 @@ public class ChatListener implements Listener {
         int namesFound = 0;
         ArrayList<String> playerNames = new ArrayList<>();
         ArrayList<Integer> playerMatches = new ArrayList<>();
-        Pattern pattern = Pattern.compile("@([\\w]{3,16})");
-        Matcher matcher = pattern.matcher(newMessage);
+        Pattern namePattern = Pattern.compile("@([\\w]{3,16})");
+        Matcher nameMatcher = namePattern.matcher(newMessage);
 
-        while (matcher.find()) {
-            if (!playerNames.contains(matcher.group(1))) {
-                playerNames.add(matcher.group(1));
+        while (nameMatcher.find()) {
+            if (!playerNames.contains(nameMatcher.group(1))) {
+                playerNames.add(nameMatcher.group(1));
                 namesFound++;
             }
         }
@@ -50,22 +50,8 @@ public class ChatListener implements Listener {
                 }
             }
         }
-        
-        boolean multipleMatches = false;
-        
-        // Multiple matches error checking
-        for (int matchAmt : playerMatches) {
-            //noinspection RedundantConditionalExpression
-            multipleMatches = matchAmt > 1 ? true : false;
-        }
 
         Player sender = event.getPlayer();
-        
-        // Send a message if multiple matches are found
-        if (multipleMatches) {
-            sender.sendMessage(ChatColor.RED + "Your mention matched more than one player, please be more specific!");
-        }
-        
         String mentionColor = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("mention-color"));
         String mentionMessage = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("mention-message"));
         String titleMentionMessage = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("title-message"));
@@ -76,6 +62,11 @@ public class ChatListener implements Listener {
                 titleMentionMessage.replace("%player%", sender.getDisplayName()),
                 subtitleMentionMessage.replace("%player%", sender.getDisplayName()),
                 2, plugin.getConfig().getInt("title-time"), 10);
+        
+        // Error Checking Variables
+        boolean everyonePerms = false;
+        boolean soundError = false;
+        boolean multipleMatches = false;
 
         for (Player target : Bukkit.getServer().getOnlinePlayers()) {
             // @Everyone Mention Case
@@ -83,32 +74,34 @@ public class ChatListener implements Listener {
                 // Color the @Everyone tag
                 newMessage = newMessage.replaceAll("@" + "(?i)" + "everyone", mentionColor + "@" + "Everyone" + ChatColor.RESET);
                 event.setMessage(newMessage);
-
-                // Send a sound to everyone
-                try {
-                    target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
-                } catch (Exception e) {
-                    plugin.getLogger().info("Error with the sound name.");
-                }
-
-                // Notify all players in chat
-                if (plugin.getConfig().getBoolean("notify-in-chat")) {
-                    target.sendMessage(mentionMessage.replace("%player%", sender.getDisplayName() + mentionColor));
-                }
-
-                // Notify all players via actionbar
-                if (plugin.getConfig().getBoolean("notify-in-actionbar")) {
-                    bar.send(target);
-                }
                 
-                // Notify all players via title
-                if (plugin.getConfig().getBoolean("notify-in-title")) {
-                    title.send(target);
+                if (sender != target) {
+                    // Send a sound to everyone
+                    try {
+                        target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
+                    } catch (Exception e) {
+                        soundError = true;
+                    }
+
+                    // Notify all players in chat
+                    if (plugin.getConfig().getBoolean("everyone-notify-chat")) {
+                        target.sendMessage(mentionMessage.replace("%player%", sender.getDisplayName() + mentionColor));
+                    }
+
+                    // Notify all players via actionbar
+                    if (plugin.getConfig().getBoolean("everyone-notify-actionbar")) {
+                        bar.send(target);
+                    }
+
+                    // Notify all players via title
+                    if (plugin.getConfig().getBoolean("everyone-notify-title")) {
+                        title.send(target);
+                    }
                 }
                 
 
             } else if (newMessage.toLowerCase().contains("@everyone") && !sender.hasPermission("mentionme.everyone")) {
-                sender.sendMessage(ChatColor.RED + "You don't have permission to use @Everyone.");
+                everyonePerms = true;
             } else {
                 // Normal Mention Case
                 for (int i = 0; i < namesFound; i++) {
@@ -124,7 +117,7 @@ public class ChatListener implements Listener {
                         try {
                             target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
                         } catch (Exception e) {
-                            plugin.getLogger().info("Error with the sound name.");
+                            soundError = true;
                         }
 
                         // Notify the player in chat
@@ -146,7 +139,36 @@ public class ChatListener implements Listener {
             }
         }
         
+        // Error Checking Messages
+        if (everyonePerms) {
+            sender.sendMessage(ChatColor.RED + "You don't have permission to use @Everyone.");
+        }
+        if (soundError) {
+            plugin.getLogger().info("Error with the sound name.");
+        }
+        for (int matchAmt : playerMatches) {
+            //noinspection RedundantConditionalExpression
+            multipleMatches = matchAmt > 1 ? true : false;
+        }
+        if (multipleMatches) {
+            sender.sendMessage(ChatColor.RED + "Your mention matched more than one player, please be more specific!");
+        }
+        
         // Hashtag System
+        ArrayList<String> hashtags = new ArrayList<>();
+        Pattern hashtagPattern = Pattern.compile("#([\\w]+)");
+        Matcher hashtagMatcher = hashtagPattern.matcher(newMessage);
+
+        while (hashtagMatcher.find()) {
+            hashtags.add(hashtagMatcher.group(1));
+        }
+        
+        String hashtagColor = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("hashtag-color"));
+        
+        for (String hashString : hashtags) {
+            newMessage = newMessage.replaceAll("#" + hashString, hashtagColor + "#" + hashString + ChatColor.RESET);
+            event.setMessage(newMessage);
+        }
     }
 
     /*@EventHandler
