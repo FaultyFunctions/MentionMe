@@ -1,6 +1,7 @@
 package USA.MoMoe.MentionMe;
 
 import io.github.theluca98.textapi.ActionBar;
+import io.github.theluca98.textapi.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -65,10 +66,16 @@ public class ChatListener implements Listener {
             sender.sendMessage(ChatColor.RED + "Your mention matched more than one player, please be more specific!");
         }
         
-        String mentionColor = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("MentionColor"));
-        String mentionMessage = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("MentionMessage"));
-        String sound = plugin.getConfig().getString("Sound");
+        String mentionColor = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("mention-color"));
+        String mentionMessage = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("mention-message"));
+        String titleMentionMessage = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("title-message"));
+        String subtitleMentionMessage = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("subtitle-message"));
+        String sound = plugin.getConfig().getString("sound");
         ActionBar bar = new ActionBar(mentionMessage.replace("%player%", sender.getDisplayName() + mentionColor));
+        Title title = new Title(
+                titleMentionMessage.replace("%player%", sender.getDisplayName()),
+                subtitleMentionMessage.replace("%player%", sender.getDisplayName()),
+                2, plugin.getConfig().getInt("title-time"), 10);
 
         for (Player target : Bukkit.getServer().getOnlinePlayers()) {
             // @Everyone Mention Case
@@ -85,14 +92,20 @@ public class ChatListener implements Listener {
                 }
 
                 // Notify all players in chat
-                if (plugin.getConfig().getBoolean("NotifyInChat")) {
+                if (plugin.getConfig().getBoolean("notify-in-chat")) {
                     target.sendMessage(mentionMessage.replace("%player%", sender.getDisplayName() + mentionColor));
                 }
 
                 // Notify all players via actionbar
-                if (plugin.getConfig().getBoolean("NotifyInActionBar")) {
+                if (plugin.getConfig().getBoolean("notify-in-actionbar")) {
                     bar.send(target);
                 }
+                
+                // Notify all players via title
+                if (plugin.getConfig().getBoolean("notify-in-title")) {
+                    title.send(target);
+                }
+                
 
             } else if (newMessage.toLowerCase().contains("@everyone") && !sender.hasPermission("mentionme.everyone")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to use @Everyone.");
@@ -115,13 +128,18 @@ public class ChatListener implements Listener {
                         }
 
                         // Notify the player in chat
-                        if (plugin.getConfig().getBoolean("NotifyInChat")) {
+                        if (plugin.getConfig().getBoolean("notify-in-chat")) {
                             target.sendMessage(mentionMessage.replace("%player%", sender.getDisplayName() + mentionColor));
                         }
 
                         // Notify the player via actionbar
-                        if (plugin.getConfig().getBoolean("NotifyInActionBar")) {
+                        if (plugin.getConfig().getBoolean("notify-in-actionbar")) {
                             bar.send(target);
+                        }
+
+                        // Notify all players via title
+                        if (plugin.getConfig().getBoolean("notify-in-title")) {
+                            title.send(target);
                         }
                     }
                 }
