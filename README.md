@@ -22,6 +22,8 @@ Spigot plugin for hashtags and tagging people.
 2. Hashtags with trending support for Today/This Week/All Time.
 3. More permission nodes for better customization.
 4. Bossbar support.
+4. Ability to toggle off being pinged.
+5. Cooldown support.
 
 ---
 
