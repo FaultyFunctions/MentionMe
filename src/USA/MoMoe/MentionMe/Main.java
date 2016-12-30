@@ -38,7 +38,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
         
         // Register Commands
-        this.getCommand("mentionmereload").setExecutor(new ReloadCommand(this));
+        this.getCommand("mentionme").setExecutor(new ReloadCommand(this));
         
         getLogger().info("MentionMe Enabled!");
     }

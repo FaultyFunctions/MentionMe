@@ -1,9 +1,15 @@
 name: MentionMe
-version: 0.3.3
+version: 0.3.4
 author: MoMoe
 main: USA.MoMoe.MentionMe.Main
 
 commands:
-    mentionmereload:
+    mentionme:
         description: "Reloads the Config"
-        usage: /mentionmereload
+        usage: /mentionme
+        permission: mentionme.reload
+        permission-message: §4You don't have access to /mentionme.
+permissions:
+    mentionme.reload:
+        default: op
+        description: Gives the ability to reload the config.

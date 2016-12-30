@@ -1,8 +1,16 @@
 Change Log
 ===
 
+##v0.3.4 (12/30/2016)
+####Added Features:
+* Auto Tab Completions
+
+####Fixes:
+1. Fixed a problem where text would be reset to white instead of what the original chat color was.
+2. Updated the reload command to `/mentionme` instead of `/mentionmereload`.
+
 ##v0.3.3 (12/28/2016)
-###Fixes:
+####Fixes:
 1. Removed the org.bukkit package from the jar.
 2. Fixed `selfnotify-tag` bug, it should work properly now.
 

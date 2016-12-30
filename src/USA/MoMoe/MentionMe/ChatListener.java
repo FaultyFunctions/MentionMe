@@ -9,8 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,8 +25,29 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler
+    public void onPlayerChatTabAttempt(PlayerChatTabCompleteEvent event)
+    {
+        String token = event.getLastToken();
+        Collection<String> autoCompletions;
+        String begin;
+        if (token.startsWith("@"))
+        {
+            autoCompletions = event.getTabCompletions();
+            autoCompletions.clear();
+            begin = token.replaceAll("@", "").toLowerCase();
+            for (Player player : Bukkit.getServer().getOnlinePlayers())
+            {
+                String playerName = player.getName();
+                if (playerName.toLowerCase().startsWith(begin)) {
+                    autoCompletions.add("@" + playerName);
+                }
+            }
+        }
+    }
+    
+    @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        String newMessage = event.getMessage();
+        String newMessage = ChatColor.translateAlternateColorCodes('&', event.getMessage());
 
         // Count the matches of @name and extract the name
         int namesFound = 0;
@@ -72,7 +95,7 @@ public class ChatListener implements Listener {
             // @Everyone Mention Case
             if (newMessage.toLowerCase().contains("@everyone") && sender.hasPermission("mentionme.everyone")) {
                 // Color the @Everyone tag
-                newMessage = newMessage.replaceAll("@" + "(?i)" + "everyone", mentionColor + "@" + "Everyone" + ChatColor.RESET);
+                newMessage = newMessage.replaceAll("@" + "(?i)" + "everyone", mentionColor + "@" + "Everyone" + ChatColor.getLastColors(event.getFormat()));
                 event.setMessage(newMessage);
                 
                 if (sender != target) {
@@ -110,7 +133,7 @@ public class ChatListener implements Listener {
                             && playerMatches.get(i) == 1) {
                         // Color @name tags
                         newMessage = newMessage.replaceAll("@" + "(?i)" + playerNames.get(i),
-                                mentionColor + "@" + target.getName() + ChatColor.RESET);
+                                mentionColor + "@" + target.getName() + ChatColor.getLastColors(event.getFormat()));
                         event.setMessage(newMessage);
                         
                         if ((sender != target) || (plugin.getConfig().getBoolean("selftag-notify"))) {
@@ -168,7 +191,7 @@ public class ChatListener implements Listener {
         String hashtagColor = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("hashtag-color"));
         
         for (String hashString : hashtags) {
-            newMessage = newMessage.replaceAll("#" + hashString, hashtagColor + "#" + hashString + ChatColor.RESET);
+            newMessage = newMessage.replaceAll("#" + hashString, hashtagColor + "#" + hashString + ChatColor.getLastColors(event.getFormat()));
             event.setMessage(newMessage);
         }
     }
