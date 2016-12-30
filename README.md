@@ -19,11 +19,11 @@ Spigot plugin for hashtags and tagging people.
 * Color `#[hashtag]` messages in chat.
 
 ###Planned Features
-1. More toggles to turn certain features off.
-2. Hashtags with trending support for Today/This Week/All Time.
-3. More permission nodes for better customization.
-4. Bossbar support.
-5. Ability to change colors with in-game chat.
+1. Hashtags with trending support for Today/This Week/All Time.
+2. Bossbar support.
+3. Ability to change colors with in-game chat.
+4. Ability to toggle off being pinged.
+5. Cooldown support.
 
 ---
 
