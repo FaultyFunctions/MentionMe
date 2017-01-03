@@ -1,6 +1,6 @@
 # MentionMe
 Spigot plugin for hashtags and tagging people.
-* Plugin Version: 0.3.4
+* Plugin Version: 0.4.0
 * Tested Minecraft & Spigot Version: 1.11.2 and 1.10.2
 
 ---
@@ -17,6 +17,7 @@ Spigot plugin for hashtags and tagging people.
 * Toggles to turn certain features off.
 * Permissions.
 * Color `#[hashtag]` messages in chat.
+* DeluxeChat Support.
 
 ###Planned Features
 1. Hashtags with trending support for Today/This Week/All Time.

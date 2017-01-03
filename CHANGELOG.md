@@ -1,9 +1,16 @@
 Change Log
 ===
 
+##v0.4.0 (01/03/2017)
+####Added Features:
+* Full integration with DeluxeChat.
+
+####Fixes:
+1. Completely recoded the plugin to be more modular, just in case more chat plugin hooks are needed.
+
 ##v0.3.4 (12/30/2016)
 ####Added Features:
-* Auto Tab Completions
+* Auto Tab Completions.
 
 ####Fixes:
 1. Fixed a problem where text would be reset to white instead of what the original chat color was.

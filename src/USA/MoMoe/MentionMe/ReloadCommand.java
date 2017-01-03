@@ -17,16 +17,18 @@ public class ReloadCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             if (sender.hasPermission("mentionme.reload")) {
+                sender.sendMessage(ChatColor.YELLOW + "MentionMe reloaded!");
                 plugin.reloadConfig();
                 plugin.saveConfig();
                 return true;
             } else {
-                sender.sendMessage(ChatColor.RED + "You don't have permission to use /mentionmereload");
+                sender.sendMessage(ChatColor.RED + "You don't have permission to use /mentionme");
                 return false;
             }
         } else {
             plugin.reloadConfig();
             plugin.saveConfig();
+            plugin.getLogger().info("MentionMe reloaded!");
             return true;
         }
     }

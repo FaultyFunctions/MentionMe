@@ -1,7 +1,8 @@
 name: MentionMe
-version: 0.3.4
+version: 0.4.0
 author: MoMoe
 main: USA.MoMoe.MentionMe.Main
+softdepend: [DeluxeChat]
 
 commands:
     mentionme:
@@ -13,3 +14,6 @@ permissions:
     mentionme.reload:
         default: op
         description: Gives the ability to reload the config.
+    mentionme.everyone:
+        default: false
+        description: Gives the ability to use @everyone.

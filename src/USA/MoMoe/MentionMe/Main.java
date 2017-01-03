@@ -3,9 +3,16 @@ package USA.MoMoe.MentionMe;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+
 public class Main extends JavaPlugin {
     // Enable the config object
     private FileConfiguration config = getConfig();
+    
+    public int namesFound = 0;
+    public ArrayList<String> playerNames = new ArrayList<>();
+    public ArrayList<Integer> playerMatches = new ArrayList<>();
+    public ArrayList<String> hashtags = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -26,16 +33,22 @@ public class Main extends JavaPlugin {
         config.addDefault("enable-sound", true);
         config.addDefault("mention-color", "&e");
         config.addDefault("hashtag-color", "&b");
-        config.addDefault("mention-message", "&aYou were mentioned by %player%&a !");
-        config.addDefault("title-message", "&aMentioned by:");
-        config.addDefault("subtitle-message", "%player%");
+        config.addDefault("mention-message", "&eYou were mentioned by &f%player%&e!");
+        config.addDefault("title-message", "&eMentioned by:");
+        config.addDefault("subtitle-message", "&f%player%");
         config.addDefault("title-time", 50);
         config.addDefault("sound", "ENTITY_EXPERIENCE_ORB_PICKUP");
         config.options().copyDefaults(true);
         saveConfig();
-
-        // Register Listener
-        getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        
+        // Register Listeners
+        getServer().getPluginManager().registerEvents(new TabComplete(), this);
+        if (getServer().getPluginManager().isPluginEnabled("DeluxeChat")) {
+            getServer().getPluginManager().registerEvents(new DeluxeChatHook(this), this);
+            getLogger().info("Hooked into DeluxeChat!");
+        } else {
+            getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        }
         
         // Register Commands
         this.getCommand("mentionme").setExecutor(new ReloadCommand(this));
