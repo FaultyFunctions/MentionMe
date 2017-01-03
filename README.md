@@ -1,6 +1,6 @@
 # MentionMe
 Spigot plugin for hashtags and tagging people.
-* Plugin Version: 0.4.0
+* Plugin Version: 0.4.1
 * Tested Minecraft & Spigot Version: 1.11.2 and 1.10.2
 
 ---

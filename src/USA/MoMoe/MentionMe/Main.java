@@ -1,5 +1,6 @@
 package USA.MoMoe.MentionMe;
 
+import USA.MoMoe.MentionMe.Hooks.DeluxeChatHook;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
