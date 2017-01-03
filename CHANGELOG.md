@@ -1,6 +1,10 @@
 Change Log
 ===
 
+##v0.4.2 (01/03/2017)
+####Added Features:
+* Integration with VentureChat channels.
+
 ##v0.4.1 (01/03/2017)
 ####Fixes:
 1. Fixed integration with DeluxeChat to work with placeholders.

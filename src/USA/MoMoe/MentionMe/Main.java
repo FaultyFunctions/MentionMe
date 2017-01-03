@@ -1,6 +1,7 @@
 package USA.MoMoe.MentionMe;
 
 import USA.MoMoe.MentionMe.Hooks.DeluxeChatHook;
+import USA.MoMoe.MentionMe.Hooks.VentureChatHook;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,10 +21,10 @@ public class Main extends JavaPlugin {
         // Default Config Options
         config.options().header(
                 "The \"everyone-notify\" options toggle whether the @everyone tag will use the features listed.\n" +
-                "The \"selftag-notify\" option will use default \"notify\" values if set to true.\n" +
-                "The \"title-time\" option below is in server ticks. 20 = 1 second\n" +
-                "You can get a full list of sounds at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html\n" +
-                "The MentionMe source code is available at: https://github.com/MoMoe0/MentionMe\n");
+                        "The \"selftag-notify\" option will use default \"notify\" values if set to true.\n" +
+                        "The \"title-time\" option below is in server ticks. 20 = 1 second\n" +
+                        "You can get a full list of sounds at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html\n" +
+                        "The MentionMe source code is available at: https://github.com/MoMoe0/MentionMe\n");
         config.addDefault("notify-in-chat", true);
         config.addDefault("notify-in-actionbar", true);
         config.addDefault("notify-in-title", true);
@@ -41,12 +42,15 @@ public class Main extends JavaPlugin {
         config.addDefault("sound", "ENTITY_EXPERIENCE_ORB_PICKUP");
         config.options().copyDefaults(true);
         saveConfig();
-        
+
         // Register Listeners
         getServer().getPluginManager().registerEvents(new TabComplete(), this);
         if (getServer().getPluginManager().isPluginEnabled("DeluxeChat")) {
             getServer().getPluginManager().registerEvents(new DeluxeChatHook(this), this);
             getLogger().info("Hooked into DeluxeChat!");
+        } else if (getServer().getPluginManager().isPluginEnabled("VentureChat")) {
+            getServer().getPluginManager().registerEvents(new VentureChatHook(this), this);
+            getLogger().info("Hooked into VentureChat!");
         } else {
             getServer().getPluginManager().registerEvents(new ChatListener(this), this);
         }

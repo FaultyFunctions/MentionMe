@@ -1,6 +1,7 @@
 package USA.MoMoe.MentionMe;
 
 import USA.MoMoe.MentionMe.HelperMethods.CaseManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,6 +21,7 @@ public class ChatListener implements Listener {
         String message = event.getMessage();
         Player sender = event.getPlayer();
         CaseManager caseManager = new CaseManager();
+        Bukkit.broadcastMessage(event.getFormat());
         message = caseManager.MentionMeManager(plugin, sender, message, ChatColor.getLastColors(event.getFormat()));
         event.setMessage(message);
     }

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+
 public class DeluxeChatHook implements Listener {
 
     private Main plugin;
@@ -20,6 +21,7 @@ public class DeluxeChatHook implements Listener {
     public void onDeluxeChat(DeluxeChatEvent event) {
         String message = event.getChatMessage();
         Player sender = event.getPlayer();
+        
         CaseManager caseManager = new CaseManager();
         message = caseManager.MentionMeManager(plugin, sender, message, ChatColor.getLastColors(event.getDeluxeFormat().getChatColor()));
         event.setChatMessage(message);
