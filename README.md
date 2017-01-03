@@ -30,7 +30,6 @@ Spigot plugin for hashtags and tagging people.
 
 **Default Config**:
 ```YAML
-# Thank you for downloading MentionMe v0.3.3!
 # The "everyone-notify" options toggle whether the @everyone tag will use the features listed.
 # The "selftag-notify" option will use default "notify" values if set to true.
 # The "title-time" option below is in server ticks. 20 = 1 second
@@ -47,9 +46,9 @@ selftag-notify: false
 enable-sound: true
 mention-color: '&e'
 hashtag-color: '&b'
-mention-message: '&aYou were mentioned by %player%&a !'
-title-message: '&aMentioned by:'
-subtitle-message: '%player%'
+mention-message: '&eYou were mentioned by &f%player%&e!'
+title-message: '&eMentioned by:'
+subtitle-message: '&f%player%'
 title-time: 50
 sound: ENTITY_EXPERIENCE_ORB_PICKUP
 ```
