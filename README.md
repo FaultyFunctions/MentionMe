@@ -5,7 +5,7 @@ Spigot plugin for hashtags and tagging people.
 
 ---
 
-###Current Features
+### Current Features
 * Tagging specific users with `@[name]`.
 * `@[name]` messages are colored.
 * Support for using partial names.
@@ -20,7 +20,7 @@ Spigot plugin for hashtags and tagging people.
 * DeluxeChat Integration.
 * VentureChat Integration.
 
-###Planned Features
+### Planned Features
 1. Hashtags with trending support for Today/This Week/All Time.
 2. Bossbar support.
 3. Ability to change colors with in-game chat.
